@@ -9,20 +9,17 @@ const login = {
         login: ({commit, state, dispatch}, config = {}) => {
             //登录
             return new Promise((resolve, reject) => {
-                axios.post(config.url, config.params, response => {
+                axios.post(config.url, config.params).then(response => {
                     if (response.status === 200) {
-                        commit(
-                            "login",
-                            (state,
-                                {
-                                    user: response.data
-                                })
+                        commit("login", (state, {user: response.data})
                         );
                         resolve(response.data);
                     } else {
-                        resolve("error");
+                        reject("error");
                     }
-                });
+                }).catch(err => {
+                    reject(err);
+                })
             });
         }
     },

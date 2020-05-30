@@ -1,6 +1,6 @@
 import axios from "axios";
-import qs from "qs";
 import Setting from "@/setting";
+import {Message} from 'element-ui';
 
 let Axios = axios.create({
     baseURL: Setting.apiBaseURL,
@@ -11,9 +11,7 @@ let Axios = axios.create({
 //Axios request 拦截器
 Axios.interceptors.request.use(
     config => {
-        config.headers["Content-Type"] = "application/x-www-form-urlencoded";
-        const data = config.data;
-        config.data = qs.stringify(data);
+        config.headers["Content-Type"] = "application/json;charset=utf-8";
         //获取本地存储的token
         const token = localStorage.getItem("token");
         config.headers.Authorization = "Bearer " + token; //携带权限参数
@@ -26,39 +24,66 @@ Axios.interceptors.request.use(
 //Axios response 拦截器
 Axios.interceptors.response.use(
     response => {
-        return response.data;
+        if (response.status === 200) {
+            return Promise.resolve(response);
+        } else {
+            return Promise.reject(response);
+        }
     },
     error => {
-        return Promise.reject(error.response);
+        Message.error({
+            message: '服务器异常!',
+            duration: 3000
+        })
+        return Promise.reject(error);
     }
 );
 
-function apiAxios(method, url, params, response) {
-    Axios({
-        method: method,
-        url: url,
-        data: method === "POST" || method === "PUT" ? params : null,
-        params: method === "GET" || method === "DELETE" ? params : null
-    })
-        .then(function (res) {
-            response(res);
-        })
-        .catch(function (err) {
-            response(err);
-        });
-}
-
 export default {
-    get: function (url, params, response) {
-        return apiAxios("GET", url, params, response);
+    get: function (url, params = {}) {
+        return new Promise((resolve, reject) => {
+            Axios.get(url, {
+                params: params
+            }).then(res => {
+                resolve(res.data);
+            }).catch(err => {
+                reject(err)
+            })
+        });
     },
-    post: function (url, params, response) {
-        return apiAxios("POST", url, params, response);
+    post: function (url, params = {}) {
+        return new Promise((resolve, reject) => {
+            Axios.post(url, JSON.stringify(params))
+                .then(res => {
+                    resolve(res.data);
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        });
     },
-    put: function (url, params, response) {
-        return apiAxios("PUT", url, params, response);
+    put: function (url, params = {}) {
+        return new Promise((resolve, reject) => {
+            Axios.put(url, params)
+                .then(response => {
+                    if (response) {
+                        resolve(response.data);
+                    } else {
+                        reject("error");
+                    }
+                })
+        });
     },
-    delete: function (url, params, response) {
-        return apiAxios("DELETE", url, params, response);
-    }
-};
+    patch: function (url, params = {}) {
+        return new Promise((resolve, reject) => {
+            Axios.patch(url, params)
+                .then(response => {
+                    if (response) {
+                        resolve(response.data);
+                    } else {
+                        reject("error");
+                    }
+                })
+        })
+    },
+}

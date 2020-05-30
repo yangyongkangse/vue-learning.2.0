@@ -38,14 +38,13 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended",
-      "@vue/prettier"
+      "plugin:vue/essential"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
     },
     "rules": {
+      "indent": [2, 4],
       "no-console": 0,
       "no-debugger": 0,
       "no-alert": 0,
