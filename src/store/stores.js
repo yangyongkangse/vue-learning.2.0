@@ -1,5 +1,8 @@
 import login from "./modules/login";
+import dashboard from "./modules/dashboard";
+
 const stores = {
-  login
+    login,
+    dashboard
 };
 export default stores;

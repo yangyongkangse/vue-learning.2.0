@@ -1,5 +1,5 @@
 import axios from "axios";
-import Setting from "@/setting";
+import Setting from "@/config/setting";
 import {Message} from 'element-ui';
 
 let Axios = axios.create({

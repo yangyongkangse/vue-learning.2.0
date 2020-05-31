@@ -13,6 +13,7 @@ const login = {
                     if (response.status === 200) {
                         commit("login", (state, {user: response.data})
                         );
+                        localStorage.setItem('username', response.data.username);
                         resolve(response.data);
                     } else {
                         reject("error");

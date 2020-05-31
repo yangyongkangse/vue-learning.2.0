@@ -6,24 +6,11 @@
 
 <script>
 export default {
-  name: "App",
-  components: {}
+    name: "App",
+    components: {}
 };
 </script>
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
-
-#app {
-  background-image: url(assets/images/background.jpg);
-  background-size: 100%;
-  background-position: center;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-}
+  @import "./assets/css/main.css";
+  @import "./assets/css/color-dark.css";     /*深色主题*/
 </style>
