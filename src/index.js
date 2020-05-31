@@ -4,7 +4,7 @@ import {Message} from 'element-ui';
 
 let Axios = axios.create({
     baseURL: Setting.apiBaseURL,
-    timeout: 5000,
+    timeout: 3000,
     withCredentials: true
 });
 
@@ -24,9 +24,13 @@ Axios.interceptors.request.use(
 //Axios response 拦截器
 Axios.interceptors.response.use(
     response => {
-        if (response.status === 200) {
+        if (response.data.status === 200) {
             return Promise.resolve(response);
         } else {
+            Message.error({
+                message: response.data.msg,
+                duration: 3000
+            })
             return Promise.reject(response);
         }
     },
