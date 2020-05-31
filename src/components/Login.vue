@@ -3,10 +3,10 @@
     <el-form ref="form" :model="loginForm" :rules="rules" label-width="100px">
       <el-row :gutter="24">
         <el-col :span="8" :offset="8">
-          <el-form-item label="用户名" prop="account">
+          <el-form-item label="用户名" prop="username">
             <el-input
-              v-model="loginForm.account"
-              name="account"
+              v-model="loginForm.username"
+              name="username"
               type="text"
               placeholder="请输入用户名"
             ></el-input>
@@ -45,11 +45,11 @@ export default {
         return {
             loading: false,
             loginForm: {
-                account: "",
-                password: ""
+                username: "admin",
+                password: "123"
             },
             rules: {
-                account: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+                username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
                 password: [{ required: true, message: "请输入密码", trigger: "blur" }]
             }
         };
@@ -64,7 +64,7 @@ export default {
                     let param = {
                         url: "/login/check",
                         params: {
-                            account: _this.loginForm.account,
+                            username: _this.loginForm.username,
                             password: _this.loginForm.password
                         }
                     };
