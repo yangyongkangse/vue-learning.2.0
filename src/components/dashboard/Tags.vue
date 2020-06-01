@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import bus from './bus';
+
 export default {
     data() {
         return {
@@ -41,13 +41,14 @@ export default {
             if (item) {
                 delItem.path === this.$route.fullPath && this.$router.push(item.path);
             }else{
-                this.$router.push('/');
+                this.$router.push('/home/dashboard');
             }
         },
         // 关闭全部标签
         closeAll(){
-            this.tagsList = [];
-            this.$router.push('/');
+            let _this=this;
+            _this.tagsList = [];
+            _this.$router.push('/home/dashboard');
         },
         // 关闭其他标签
         closeOther(){
@@ -57,20 +58,20 @@ export default {
         },
         // 设置标签
         setTags(route){
+            debugger
             const isExist = this.tagsList.some(item => {
                 return item.path === route.fullPath;
             })
             if(!isExist){
-                if(this.tagsList.length >= 8){
+                if(this.tagsList.length >= 12){
                     this.tagsList.shift();
                 }
                 this.tagsList.push({
                     title: route.meta.title,
-                    path: route.fullPath,
-                    name: route.matched[1]
+                    path: route.fullPath
                 })
             }
-            bus.$emit('tags', this.tagsList);
+            this.$store.dispatch("setTags", {tags: this.tagsList});
         },
         handleTags(command){
             command === 'other' ? this.closeOther() : this.closeAll();
@@ -88,23 +89,6 @@ export default {
     },
     created(){
         this.setTags(this.$route);
-        // 监听关闭当前页面的标签页
-        bus.$on('close_current_tags', () => {
-            for (let i = 0, len = this.tagsList.length; i < len; i++) {
-                const item = this.tagsList[i];
-                if(item.path === this.$route.fullPath){
-                    if(i < len - 1){
-                        this.$router.push(this.tagsList[i+1].path);
-                    }else if(i > 0){
-                        this.$router.push(this.tagsList[i-1].path);
-                    }else{
-                        this.$router.push('/');
-                    }
-                    this.tagsList.splice(i, 1);
-                    break;
-                }
-            }
-        })
     }
 }
 
@@ -114,7 +98,7 @@ export default {
 <style>
     .tags {
         position: relative;
-        height: 30px;
+        height: 40px;
         overflow: hidden;
         background: #fff;
         padding-right: 120px;
@@ -131,11 +115,11 @@ export default {
         float: left;
         margin: 3px 5px 2px 3px;
         border-radius: 3px;
-        font-size: 12px;
+        font-size: 13px;
         overflow: hidden;
         cursor: pointer;
-        height: 23px;
-        line-height: 23px;
+        height: 28px;
+        line-height: 28px;
         border: 1px solid #e9eaec;
         background: #fff;
         padding: 0 5px 0 12px;
@@ -172,14 +156,19 @@ export default {
         position: absolute;
         right: 0;
         top: 0;
+        font-size: 13px;
         box-sizing: border-box;
         padding-top: 1px;
         text-align: center;
         width: 110px;
         height: 30px;
+        line-height: 30px;
         background: #fff;
         box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
         z-index: 10;
+    }
+    .tags-close-box span{
+        font-size: 13px;
     }
 
 </style>

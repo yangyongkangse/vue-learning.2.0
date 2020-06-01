@@ -28,13 +28,15 @@
                                         v-for="(threeItem,i) in subItem.subs"
                                         :key="i"
                                         :index="threeItem.index"
-                                >{{ threeItem.title }}</el-menu-item>
+                                >{{ threeItem.title }}
+                                </el-menu-item>
                             </el-submenu>
                             <el-menu-item
                                     v-else
                                     :index="subItem.index"
                                     :key="subItem.index"
-                            >{{ subItem.title }}</el-menu-item>
+                            >{{ subItem.title }}
+                            </el-menu-item>
                         </template>
                     </el-submenu>
                 </template>
@@ -50,26 +52,30 @@
 </template>
 
 <script>
-import bus from '../dashboard/bus';
 import menu from '@/config/menu'
 export default {
     data() {
         return {
             collapse: false,
-            items:menu
+            items: menu
         };
     },
     computed: {
         onRoutes() {
             return this.$route.path.replace('/', '');
+        },
+        getCollapse(){
+            return this.$store.state.dashboard.collapse;
+        }
+    },
+    watch: {
+        getCollapse(val) {
+            this.collapse = val;
+            this.$store.dispatch("setCollapseContent", {collapseContent:  val});
         }
     },
     created() {
-        // 通过 Event Bus 进行组件间通信，来折叠侧边栏
-        bus.$on('collapse', msg => {
-            this.collapse = msg;
-            bus.$emit('collapse-content', msg);
-        });
+
     }
 };
 </script>
@@ -83,12 +89,15 @@ export default {
         bottom: 0;
         overflow-y: scroll;
     }
+
     .sidebar::-webkit-scrollbar {
         width: 0;
     }
+
     .sidebar-el-menu:not(.el-menu--collapse) {
         width: 250px;
     }
+
     .sidebar > ul {
         height: 100%;
     }

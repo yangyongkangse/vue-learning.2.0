@@ -1,17 +1,17 @@
 export default [
     {
         icon: 'el-icon-s-home',
-        index: 'dashboard',
+        index: '/home/dashboard',
         title: '系统首页'
     },
     {
         icon: 'el-icon-s-grid',
-        index: 'table',
+        index: '/home/table',
         title: '基础表格'
     },
     {
         icon: 'el-icon-document-copy',
-        index: 'tabs',
+        index: '/home/tabs',
         title: 'tab选项卡'
     },
     {
@@ -20,57 +20,37 @@ export default [
         title: '表单相关',
         subs: [
             {
-                index: 'form',
+                index: '/aboutFrom/form',
                 title: '基本表单'
             },
             {
-                index: '3-2',
+                index: '/aboutFrom/menu',
                 title: '三级菜单',
-                subs: [
-                    {
-                        index: 'editor',
-                        title: '富文本编辑器'
-                    },
-                    {
-                        index: 'markdown',
-                        title: 'markdown编辑器'
-                    }
-                ]
             },
             {
-                index: 'upload',
+                index: '/aboutFrom/upload',
                 title: '文件上传'
             }
         ]
     },
     {
         icon: 'el-icon-star-on',
-        index: 'icon',
+        index: '/home/icon',
         title: '自定义图标'
     },
     {
         icon: 'el-icon-pie-chart',
-        index: 'charts',
+        index: '/home/charts',
         title: 'echart图表'
     },
     {
         icon: 'el-icon-rank',
-        index: '6',
-        title: '拖拽组件',
-        subs: [
-            {
-                index: 'drag',
-                title: '拖拽列表'
-            },
-            {
-                index: 'dialog',
-                title: '拖拽弹框'
-            }
-        ]
+        index: '/home/drag',
+        title: '拖拽组件'
     },
     {
         icon: 'el-icon-s-help',
-        index: 'i18n',
+        index: '/home/i18n',
         title: '国际化功能'
     },
     {
@@ -79,11 +59,11 @@ export default [
         title: '错误处理',
         subs: [
             {
-                index: 'permission',
+                index: '/handle/permission',
                 title: '权限测试'
             },
             {
-                index: '404',
+                index: '/handle/404',
                 title: '404页面'
             }
         ]

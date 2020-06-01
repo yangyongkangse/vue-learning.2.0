@@ -1,6 +1,7 @@
 import axios from "axios";
 import Setting from "@/config/setting";
 import {Message} from 'element-ui';
+import VueCookie from "@/config/util.cookies";
 
 let Axios = axios.create({
     baseURL: Setting.apiBaseURL,
@@ -13,7 +14,7 @@ Axios.interceptors.request.use(
     config => {
         config.headers["Content-Type"] = "application/json;charset=utf-8";
         //获取本地存储的token
-        const token = localStorage.getItem("token");
+        const token = VueCookie.get('token');
         config.headers.Authorization = "Bearer " + token; //携带权限参数
         return config;
     },

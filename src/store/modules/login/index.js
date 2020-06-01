@@ -1,4 +1,5 @@
 import axios from "@/index";
+import VueCookie from "@/config/util.cookies";
 
 const login = {
     state: {
@@ -13,7 +14,8 @@ const login = {
                     if (response.status === 200) {
                         commit("login", (state, {user: response.data})
                         );
-                        localStorage.setItem('username', response.data.username);
+                        VueCookie.set('username', response.data.username,'2h')
+                        VueCookie.set('remark', response.data.remark,'2h')
                         resolve(response.data);
                     } else {
                         reject("error");

@@ -57,7 +57,7 @@ export default {
                         }
                     };
                     _this.$store.dispatch("login", param).then(() => {
-                        _this.$router.push('/');
+                        _this.$router.push('/home/dashboard');
                     });
                 } else {
                     _this.$message({

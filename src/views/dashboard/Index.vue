@@ -98,11 +98,12 @@
 </template>
 
 <script>
+
 export default {
     name: 'dashboard',
     data() {
         return {
-            name: localStorage.getItem('username'),
+            name: this.$cookie.get('remark'),
             todoList: [
                 {
                     title: '今天要修复100个bug',
@@ -208,7 +209,7 @@ export default {
     },
     computed: {
         role() {
-            return this.name === 'yangyk' ? '超级管理员' : '普通用户';
+            return this.name === '杨永康' ? '超级管理员' : '普通用户';
         }
     },
 };

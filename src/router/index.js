@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
-
+import VueCookie from "../config/util.cookies";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -10,8 +10,8 @@ const router = new VueRouter({
 });
 //路由跳转前进行权限验证
 router.beforeEach((to, from, next) => {
-    //const token= localStorage.getItem('token')
-    const role = localStorage.getItem('username');
+    //const token=VueCookie.get('username');
+    const role = VueCookie.get('username');
     if (!role && to.path !== '/login') {
         next('/login');
     } else {

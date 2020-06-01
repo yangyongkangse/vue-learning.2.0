@@ -21,7 +21,7 @@
                             :content="message?`有${message}条未读消息`:`消息中心`"
                             placement="bottom"
                     >
-                        <router-link to="/tabs">
+                        <router-link to="/home/tabs">
                             <i class="el-icon-bell"></i>
                         </router-link>
                     </el-tooltip>
@@ -46,14 +46,12 @@
     </div>
 </template>
 <script>
-import bus from '../dashboard/bus';
-
 export default {
     data() {
         return {
             collapse: false,
             fullscreen: false,
-            name: 'yangyk',
+            name: '杨永康',
             message: 2
         };
     },
@@ -61,14 +59,14 @@ export default {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command === 'loginout') {
-                localStorage.removeItem('username');
+                this.$cookie.delete('username');
                 this.$router.push('/login');
             }
         },
         // 侧边栏折叠
         collapseChange() {
             this.collapse = !this.collapse;
-            bus.$emit('collapse', this.collapse);
+            this.$store.dispatch("setCollapse", {collapse:this.collapse});
         },
         // 全屏事件
         handleFullScreen() {
@@ -92,8 +90,9 @@ export default {
     },
     computed: {
         username() {
-            let username = localStorage.getItem('username');
-            return username ? username : this.name;
+            let _this=this;
+            let username =_this.$cookie.get('remark');
+            return username ? username : _this.name;
         }
     },
 };
