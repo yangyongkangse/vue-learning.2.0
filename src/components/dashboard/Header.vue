@@ -91,7 +91,7 @@ export default {
     computed: {
         username() {
             let _this=this;
-            let username =_this.$cookie.get('remark');
+            let username =_this.$cookie.get('full-name');
             return username ? username : _this.name;
         }
     },
