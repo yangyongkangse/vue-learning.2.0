@@ -16,14 +16,17 @@ const login = {
                     if (response.status === 200) {
                         commit("login", (state, {user: response.data})
                         );
+                        debugger
                         //账号
                         VueCookie.set('username', response.data.username,'2h')
                         //用户名
                         VueCookie.set('full-name', response.data.fullName,'2h')
                         //用户id
-                        VueCookie.set('user-id', response.data.id,'2h')
+                        VueCookie.set('user-id', response.data.userId,'2h')
                         //权限
                         VueCookie.set('authorities',JSON.stringify(response.data.authorities),'2h')
+                        //token
+                        VueCookie.set('token', response.data.accessToken,'2h')
                         resolve(response.data);
                     } else {
                         reject("error");

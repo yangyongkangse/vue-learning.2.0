@@ -58,6 +58,11 @@ export default {
                     };
                     _this.$store.dispatch("login", param).then(() => {
                         _this.$router.push('/home/dashboard');
+                        _this.$message({
+                            type:"success",
+                            message:"登录成功",
+                            duration:3000
+                        })
                     });
                 } else {
                     _this.$message({

@@ -40,29 +40,38 @@ export default {
             const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1];
             if (item) {
                 delItem.path === this.$route.fullPath && this.$router.push(item.path);
-            }else{
+            } else {
                 this.$router.push('/home/dashboard');
             }
         },
         // 关闭全部标签
-        closeAll(){
-            let _this=this;
-            _this.tagsList = [];
-            _this.$router.push('/home/dashboard');
+        closeAll() {
+            let _this = this;
+            if (_this.tagsList.length === 1) {
+                if( _this.tagsList[0].title==='系统首页'){
+                    return false;
+                }else{
+                    _this.tagsList = [];
+                    _this.$router.push('/home/dashboard');
+                }
+            }else{
+                _this.tagsList = [];
+                _this.$router.push('/home/dashboard');
+            }
         },
         // 关闭其他标签
-        closeOther(){
-            this.tagsList =  this.tagsList.filter(item => {
+        closeOther() {
+            this.tagsList = this.tagsList.filter(item => {
                 return item.path === this.$route.fullPath;
             });
         },
         // 设置标签
-        setTags(route){
+        setTags(route) {
             const isExist = this.tagsList.some(item => {
                 return item.path === route.fullPath;
             })
-            if(!isExist){
-                if(this.tagsList.length >= 12){
+            if (!isExist) {
+                if (this.tagsList.length >= 12) {
                     this.tagsList.shift();
                 }
                 this.tagsList.push({
@@ -72,7 +81,7 @@ export default {
             }
             this.$store.dispatch("setTags", {tags: this.tagsList});
         },
-        handleTags(command){
+        handleTags(command) {
             command === 'other' ? this.closeOther() : this.closeAll();
         }
     },
@@ -81,12 +90,12 @@ export default {
             return this.tagsList.length > 0;
         }
     },
-    watch:{
-        $route(newValue, oldValue){
+    watch: {
+        $route(newValue, oldValue) {
             this.setTags(newValue);
         }
     },
-    created(){
+    created() {
         this.setTags(this.$route);
     }
 }
@@ -166,7 +175,8 @@ export default {
         box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
         z-index: 10;
     }
-    .tags-close-box span{
+
+    .tags-close-box span {
         font-size: 13px;
     }
 

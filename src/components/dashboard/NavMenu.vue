@@ -63,7 +63,6 @@ export default {
         getUserMenuInfo() {
             let _this = this;
             let userId = _this.$cookie.get('user-id');
-            let authorities = JSON.parse(_this.$cookie.get('authorities'));
             let param = {
                 url: "/system/getUserMenuInfo",
                 params: {

@@ -3,7 +3,11 @@ import VueRouter from "vue-router";
 import routes from "./routes";
 import VueCookie from "../config/util.cookies";
 Vue.use(VueRouter);
-
+/*解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题*/
+const originalReplace = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+    return originalReplace.call(this, location).catch(err => err);
+};
 const router = new VueRouter({
     routes,
     mode: "history"
