@@ -2,6 +2,8 @@ import axios from "axios";
 import Setting from "@/config/setting";
 import {Message} from 'element-ui';
 import VueCookie from "@/config/util.cookies";
+import router from '@/router';
+import de from "element-ui/src/locale/lang/de";
 
 let Axios = axios.create({
     baseURL: Setting.apiBaseURL,
@@ -15,9 +17,10 @@ Axios.interceptors.request.use(
         config.headers["Content-Type"] = "application/json;charset=utf-8";
         //获取本地存储的token
         const token = VueCookie.get('token');
-        if (token !== null) {
-            config.headers.Authorization = "Bearer " + token; //携带权限参数
+        if(!token){
+            router.push('/login');
         }
+        config.headers.Authorization = "Bearer " + token; //携带权限参数
         return config;
     },
     error => {
@@ -39,9 +42,10 @@ Axios.interceptors.response.use(
     },
     error => {
         Message.error({
-            message: '服务器异常!',
+            message: error.response.data.msg,
             duration: 3000
         })
+        router.push('/login');
         return Promise.reject(error);
     }
 );

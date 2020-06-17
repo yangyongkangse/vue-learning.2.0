@@ -3,7 +3,7 @@ export default [
     {
         path: "/",
         name: "",
-        redirect: '/home/dashboard',
+        redirect: '/login',
     },
     {
         path: "/login",

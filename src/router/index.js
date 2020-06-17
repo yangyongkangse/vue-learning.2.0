@@ -14,9 +14,8 @@ const router = new VueRouter({
 });
 //路由跳转前进行权限验证
 router.beforeEach((to, from, next) => {
-    //const token=VueCookie.get('username');
-    const role = VueCookie.get('username');
-    if (!role && to.path !== '/login') {
+    const token=VueCookie.get('token');
+    if (!token && to.path !== '/login') {
         next('/login');
     } else {
         next()

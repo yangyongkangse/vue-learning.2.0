@@ -16,7 +16,6 @@ const login = {
                     if (response.status === 200) {
                         commit("login", (state, {user: response.data})
                         );
-                        debugger
                         //账号
                         VueCookie.set('username', response.data.username,'2h')
                         //用户名
