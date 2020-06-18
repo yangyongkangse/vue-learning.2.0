@@ -18,10 +18,6 @@ const login = {
                         );
                         //账号
                         VueCookie.set('username', response.data.username,'2h')
-                        //用户名
-                        VueCookie.set('full-name', response.data.fullName,'2h')
-                        //用户id
-                        VueCookie.set('user-id', response.data.userId,'2h')
                         //权限
                         VueCookie.set('authorities',JSON.stringify(response.data.authorities),'2h')
                         //token
@@ -39,7 +35,7 @@ const login = {
             return new Promise((resolve, reject) => {
                 axios.get(config.url, config.params).then(response => {
                     if (response.status === 200) {
-                        commit("setUserMenuInfo", (state, {menu: response.data.roleMenus,role: response.data.authorities})
+                        commit("setUserMenuInfo", (state, {menu: response.data})
                         );
                         resolve(response.data);
                     } else {

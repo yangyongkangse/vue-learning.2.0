@@ -62,11 +62,11 @@ export default {
     methods: {
         getUserMenuInfo() {
             let _this = this;
-            let userId = _this.$cookie.get('user-id');
+            let username = _this.$cookie.get('username');
             let param = {
                 url: "/system/getUserMenuInfo",
                 params: {
-                    "userId":userId
+                    "username":username
                 }
             };
             _this.$store.dispatch("getUserMenuInfo", param).then(() => {

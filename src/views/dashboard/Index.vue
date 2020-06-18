@@ -103,7 +103,7 @@ export default {
     name: 'dashboard',
     data() {
         return {
-            name: this.$cookie.get('full-name'),
+            name: this.$cookie.get('username'),
             todoList: [
                 {
                     title: '今天要修复100个bug',

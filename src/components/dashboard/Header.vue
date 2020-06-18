@@ -60,6 +60,8 @@ export default {
         handleCommand(command) {
             if (command === 'loginout') {
                 this.$cookie.delete('username');
+                this.$cookie.delete('token');
+                this.$cookie.delete('authorities');
                 this.$router.push('/login');
             }
         },
@@ -91,7 +93,7 @@ export default {
     computed: {
         username() {
             let _this=this;
-            let username =_this.$cookie.get('full-name');
+            let username =_this.$cookie.get('username');
             return username ? username : _this.name;
         }
     },

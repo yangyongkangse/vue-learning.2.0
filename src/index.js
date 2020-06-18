@@ -17,10 +17,11 @@ Axios.interceptors.request.use(
         config.headers["Content-Type"] = "application/json;charset=utf-8";
         //获取本地存储的token
         const token = VueCookie.get('token');
-        if(!token){
+        if (token !== null) {
+            config.headers.Authorization = "Bearer " + token; //携带权限参数
+        } else {
             router.push('/login');
         }
-        config.headers.Authorization = "Bearer " + token; //携带权限参数
         return config;
     },
     error => {
