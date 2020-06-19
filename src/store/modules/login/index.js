@@ -4,8 +4,8 @@ import VueCookie from "@/config/util.cookies";
 const login = {
     state: {
         user: [],
-        menu:[],
-        role:[],
+        menu: [],
+        role: [],
     },
     getters: {},
     actions: {
@@ -17,11 +17,11 @@ const login = {
                         commit("login", (state, {user: response.data})
                         );
                         //账号
-                        VueCookie.set('username', response.data.username,'2h')
+                        VueCookie.set('username', response.data.username, {expires: '2h'})
                         //权限
-                        VueCookie.set('authorities',JSON.stringify(response.data.authorities),'2h')
+                        VueCookie.set('authorities', JSON.stringify(response.data.authorities), {expires: '2h'})
                         //token
-                        VueCookie.set('token', response.data.accessToken,'2h')
+                        VueCookie.set('token', response.data.accessToken, {expires: '2h'})
                         resolve(response.data);
                     } else {
                         reject("error");
