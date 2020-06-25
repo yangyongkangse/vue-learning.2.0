@@ -3,10 +3,8 @@ import Setting from "@/config/setting";
 import {Message} from 'element-ui';
 import VueCookie from "@/config/util.cookies";
 import router from '@/router';
-import de from "element-ui/src/locale/lang/de";
 
 let Axios = axios.create({
-    baseURL: Setting.apiBaseURL,
     timeout: 3000,
     withCredentials: true
 });

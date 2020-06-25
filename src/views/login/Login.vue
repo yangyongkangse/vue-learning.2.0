@@ -21,7 +21,7 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()" :loading="loading">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <p class="login-tips">Tips : 不积跬步无以至千里。</p>
             </el-form>
         </div>
     </div>
@@ -50,7 +50,7 @@ export default {
                 _this.loading = false;
                 if (valid) {
                     let param = {
-                        url: "/login/check",
+                        url: "/learning/api/login/check",
                         params: {
                             username: _this.param.username,
                             password: _this.param.password

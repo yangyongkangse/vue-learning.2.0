@@ -64,7 +64,7 @@ export default {
             let _this = this;
             let username = _this.$cookie.get('username');
             let param = {
-                url: "/system/getUserMenuInfo",
+                url: "/learning/api/system/getUserMenuInfo",
                 params: {
                     "username":username
                 }
